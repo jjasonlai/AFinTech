@@ -63,7 +63,7 @@ namespace Sabio.Services
 
         public AdminDashboard GetDataForDashboard()
         {
-            string procName = "dbo.admin_dash_data ";
+            string procName = "dbo.Admin_Dash_Data ";
             AdminDashboard result = null;
             List<Lender> lenders = null;
             Paged<Borrower> pagedBorrowers = null;
@@ -159,7 +159,7 @@ namespace Sabio.Services
         public List<Lender> QueryLenders(string query)
         {
             List<Lender> lenders = null;
-            string procName = "dbo.admin_dash_lenders_Query";
+            string procName = "dbo.Admin_Dash_Lenders_Query";
 
             _data.ExecuteCmd(procName,
                 inputParamMapper: delegate (SqlParameterCollection col)
