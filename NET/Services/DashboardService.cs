@@ -42,24 +42,6 @@ namespace Sabio.Services
             _lenderService = lenderService;
             _fileService = fileService;
         }
-        public BorrowerDashboard GetBorrowerDashUI(int pageIndex, int pageSize, int userId)
-        {
-            BorrowerDashboard dashboard = new BorrowerDashboard();
-
-            List<LoanApplication> application = _loanApplication.GetCurrentPage(pageIndex, pageSize, userId);
-
-            Paged<Blog> blog = _blogService.GetAll(pageIndex, pageSize);
-
-            Paged<Lender> lender = _lenderService.LendersGetByCreatedBy(userId, pageIndex, pageSize);
-
-            Paged<File> files = _fileService.GetByCreatedBy(pageIndex, pageSize, userId);
-
-            dashboard.LoanApplications = application;
-            dashboard.Blogs = blog;
-            dashboard.Lenders = lender;
-            dashboard.Files = files;
-            return dashboard;
-        }
 
         public AdminDashboard GetDataForDashboard()
         {
@@ -435,6 +417,25 @@ namespace Sabio.Services
                     col.AddWithValue("@UserId", userId);
                     col.AddWithValue("@Role", role);
                 }, returnParameters:null);
+        }
+
+        public BorrowerDashboard GetBorrowerDashUI(int pageIndex, int pageSize, int userId)
+        {
+            BorrowerDashboard dashboard = new BorrowerDashboard();
+
+            List<LoanApplication> application = _loanApplication.GetCurrentPage(pageIndex, pageSize, userId);
+
+            Paged<Blog> blog = _blogService.GetAll(pageIndex, pageSize);
+
+            Paged<Lender> lender = _lenderService.LendersGetByCreatedBy(userId, pageIndex, pageSize);
+
+            Paged<File> files = _fileService.GetByCreatedBy(pageIndex, pageSize, userId);
+
+            dashboard.LoanApplications = application;
+            dashboard.Blogs = blog;
+            dashboard.Lenders = lender;
+            dashboard.Files = files;
+            return dashboard;
         }
         private UserInfo MapSingleUser(IDataReader reader, ref int startingIndex)
         {
